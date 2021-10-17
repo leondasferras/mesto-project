@@ -1,8 +1,17 @@
 .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-width: 320px;
-  max-width: 1280px;
+  max-width: 880px;
   font-family: Inter, Arial, sans-serif;
   color: white;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
 }
+
