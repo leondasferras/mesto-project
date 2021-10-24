@@ -1,8 +1,9 @@
 .profile__add-button {
-  background: url('../../../images/add-button.svg') no-repeat center;
+  background: url("../../../images/add-button.svg") no-repeat center;
   width: 150px;
   height: 50px;
   justify-self: end;
+  border: none;
 }
 
 .profile__add-button:hover {
@@ -14,6 +15,6 @@
     justify-self: center;
     width: 282px;
     height: 50px;
-    background-image: url('../../../images/add-button-mobile.svg');
+    background-image: url("../../../images/add-button-mobile.svg");
   }
 }
