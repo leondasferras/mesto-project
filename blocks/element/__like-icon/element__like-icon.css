@@ -4,8 +4,11 @@
   height: 19px;
   background-repeat: no-repeat;
   background-position: center;
+  border: none;
+  transition: opacity 0.25s ease-in-out;
 }
 
 .element__like-icon:hover {
   opacity: 50%;
+  transition: opacity 0.25s ease-in-out;
 }

@@ -1,6 +1,6 @@
 .header {
   background-color: #000;
-  padding-bottom: 41px;
+  padding-bottom: 37px;
   padding-top: 45px;
   border-bottom: 1px solid #545454;
   box-sizing: border-box;
@@ -9,6 +9,6 @@
 
 @media screen and (max-width: 900px) {
   .header {
-    padding: 27px 0px 31px 27px;
+    padding: 27px 0px 27px 27px;
   }
 }
