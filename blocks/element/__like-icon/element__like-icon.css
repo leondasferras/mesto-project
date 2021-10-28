@@ -2,6 +2,7 @@
   background-image: url("../../../images/like.svg");
   width: 32px;
   height: 19px;
+  background-color: unset;
   background-repeat: no-repeat;
   background-position: center;
   border: none;
