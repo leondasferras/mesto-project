@@ -1,4 +1,4 @@
-.element__like-icon {
+.card__like-icon {
   background-image: url("../../../images/like.svg");
   width: 32px;
   height: 19px;
@@ -9,7 +9,7 @@
   transition: opacity 0.25s ease-in-out;
 }
 
-.element__like-icon:hover {
+.card__like-icon:hover {
   opacity: 50%;
   transition: opacity 0.25s ease-in-out;
 }
