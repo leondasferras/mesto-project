@@ -1,9 +1,17 @@
 .cards {
   width: 100%;
   display: grid;
-  justify-content: center;
+  justify-content: left;
   grid-template-columns: repeat(auto-fit, 282px);
   grid-template-rows: 1fr 1fr;
   row-gap: 20px;
   column-gap: 17px;
+}
+
+
+@media screen and (max-width: 930px) {
+  .cards {
+    justify-content: center;
+  }
+  
 }

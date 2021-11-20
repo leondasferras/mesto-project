@@ -1,33 +1,33 @@
-const profileEditPopupSelector = document.querySelector("#profile-edit-popup");
+const profileEditPopup = document.querySelector("#profile-edit-popup");
+const addCardPopup = document.querySelector("#add-card-popup");
+const picPopup = document.querySelector('.popup_type_pic');
 
-// Открыть "Редактировать профиль".
-function openProfileEditPopup() {
-  const popup = profileEditPopupSelector;
-  popup.classList.add("popup_opened");
+// Открыть попап.
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
-// Закрыть "Редактировать профиль".
-function closeProfileEditPopup() {
-  const popup = profileEditPopupSelector;
-  popup.classList.remove("popup_opened");
+// Закрыть попап.
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 // Добавляем клик по кнопке редактировать.
 document
   .querySelector(".profile__edit-button")
   .addEventListener("click", () => {
-    openProfileEditPopup();
+    openPopup(profileEditPopup);
   });
 
-// Добавляем клик по кнопке закрыть попап.
-profileEditPopupSelector
+// Добавляем клик по кнопке закрыть попап редактирования.
+profileEditPopup
   .querySelector(".popup__close-button")
   .addEventListener("click", () => {
-    closeProfileEditPopup();
+    closePopup(profileEditPopup);
   });
 
 // Находим форму в DOM
-const formElement = profileEditPopupSelector.querySelector(".popup__form");
+const formElement = profileEditPopup.querySelector(".popup__form");
 // Находим поля формы в DOM
 const nameInput = formElement.querySelector('input[name="name"]');
 const jobInput = formElement.querySelector('input[name="description"]');
@@ -49,7 +49,7 @@ function formSubmitHandler(evt) {
   profileSubtitle.textContent = jobInputValue;
 
   // Закрываем попап с формой.
-  closeProfileEditPopup();
+  closePopup(profileEditPopup);
 }
 
 // Прикрепляем обработчик к форме:
@@ -97,17 +97,33 @@ function createCardFromTemplate(cardName, cardLink) {
   const cardPic = cardElement.querySelector(".card__pic");
   cardPic.src = cardLink;
   cardPic.alt = cardName;
-
+ 
+  // Добавляем клик по кнопке лайка.
   cardElement
     .querySelector(".card__like-icon")
     .addEventListener("click", (event) => {
       event.target.classList.toggle("card__like-icon_active");
     });
 
-  cardElement
-    .querySelector(".card__delete-button")
+  // Добавляем клик по кнопке удаления.
+  cardElement.
+    querySelector(".card__delete-button")
     .addEventListener("click", () => {
       cardElement.remove();
+    });
+
+  // Добавляем клик по картинке.
+  cardElement
+    .querySelector(".card__pic")
+    .addEventListener("click", () => {
+      const popupPic = picPopup.querySelector('.fullscr-card__pic');
+      popupPic.src = cardLink;
+      popupPic.alt = cardName;
+
+      const popupCaption = picPopup.querySelector('.fullscr-card__caption');
+      popupCaption.textContent = cardName;
+
+      openPopup(picPopup);
     });
 
   return cardElement;
@@ -130,18 +146,11 @@ initialCards.forEach((card) => {
   addCardToEnd(card.name, card.link);
 });
 
-const addCardPopupSelector = document.querySelector("#add-card-popup");
 
-// Открыть "Добавить новое место".
-function openAddCardPopup() {
-  const popup = addCardPopupSelector;
-  popup.classList.add("popup_opened");
-}
 
 // Закрыть "Добавить новое место".
 function closeAddCardPopup() {
-  const popup = addCardPopupSelector;
-  popup.classList.remove("popup_opened");
+  closePopup(addCardPopup);
 
   // Обнуляем value формы
   cardNameInput.value = "";
@@ -150,18 +159,18 @@ function closeAddCardPopup() {
 
 // Добавляем клик по кнопке добавить.
 document.querySelector(".profile__add-button").addEventListener("click", () => {
-  openAddCardPopup();
+  openPopup(addCardPopup);
 });
 
-// Добавляем клик по кнопке закрыть попап.
-addCardPopupSelector
+// Добавляем клик по кнопке закрыть попап добавления карточки.
+addCardPopup
   .querySelector(".popup__close-button")
   .addEventListener("click", () => {
     closeAddCardPopup();
   });
 
 // Находим форму в DOM
-const addCardForm = addCardPopupSelector.querySelector(".popup__form");
+const addCardForm = addCardPopup.querySelector(".popup__form");
 // Находим поля формы в DOM
 const cardNameInput = addCardForm.querySelector('input[name="card-title"]');
 const cardSrcInput = addCardForm.querySelector('input[name="card-src"]');
@@ -184,3 +193,15 @@ function addCardFormSubmit(evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 addCardForm.addEventListener("submit", addCardFormSubmit);
+
+
+
+
+
+// Добавляем клик по кнопке закрыть попап.
+picPopup
+  .querySelector(".popup__close-button")
+  .addEventListener("click", () => {
+    closePopup(picPopup);
+  });
+
