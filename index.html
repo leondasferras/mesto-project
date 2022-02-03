@@ -57,21 +57,31 @@
     <div class="popup popup_type_new-card">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="add-card">
+        <form class="popup__form" name="add-card" novalidate>
           <input
             class="popup__input popup__input_card-title"
             type="text"
             name="card-title"
             placeholder="Название"
+            required
+            minlength="2"
+            maxlength="30"
           />
+          <div class="popup__error-container">
+            <p class="popup__error-message popup__error-message_input_card-title">Вы пропустили это поле.</p>
+          </div>
           <input
             class="popup__input popup__input_card-src"
             type="url"
             name="card-src"
             placeholder="Ссылка на картинку"
+            required
           />
+          <div class="popup__error-container">
+            <p class="popup__error-message popup__error-message_input_card-src">Введите адрес сайта.</p>
+          </div>
           <button class="popup__submit-button" type="submit" value="Сохранить">
-            Сохранить
+            Создать
           </button>
         </form>
         <button class="popup__close-button" type="button"></button>

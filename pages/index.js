@@ -177,3 +177,15 @@ function openProfilePopup() {
   // 3аполняем поля формы.
   openPopup(profileEditPopup);
 }
+
+
+
+
+//Делаем валидацию форм
+
+
+// Объект формы добавления карточки
+const validationParametres = {
+  formSelector: document.querySelectorAll('.popup__form');
+  inputSelector: document
+}

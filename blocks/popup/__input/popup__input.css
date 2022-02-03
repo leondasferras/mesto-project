@@ -6,7 +6,6 @@
   font-weight: normal;
   width: 100%;
   min-height: 27px;
-  margin-bottom: 29px;
   font-size: 14px;
   line-height: 17px;
   border-bottom: 1px solid rgb(0, 0, 0, 0.2);
@@ -18,3 +17,4 @@
   border-bottom: 1px solid rgb(0, 0, 0);
   transition: border-bottom 0.25s ease-in-out;
 }
+

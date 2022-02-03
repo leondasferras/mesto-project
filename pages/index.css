@@ -28,8 +28,12 @@
 @import url('../blocks/popup/__close-button/popup__close-button.css');
 @import url('../blocks/popup/__form/popup__form.css');
 @import url('../blocks/popup/__input/popup__input.css');
+@import url('../blocks/popup/__input/_error/popup__input_error.css');
 @import url('../blocks/popup/__submit-button/popup__submit-button.css');
+@import url('../blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css');
 @import url('../blocks/popup/_opened/popup__opened.css');
+@import url('../blocks/popup/__error-container/popup__error-container.css');
+@import url('../blocks/popup/__error-message/popup__error-message.css');
 @import url('../blocks/fullscr-card/fullscr-card.css');
 @import url('../blocks/fullscr-card/__pic/fullscr-card__pic.css');
 @import url('../blocks/fullscr-card/__caption/fullscr-card__caption.css');
