@@ -35,18 +35,30 @@
         <form class="popup__form" name="profile-edit">
           <input
             class="popup__input popup__input_profile-name"
+            id="profile-name-input"
             type="text"
             name="name"
             value="Жак-Ив Кусто"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <div class="popup__error-container">
+            <span class="popup__error-message profile-name-input-error "></span>
+          </div>
           <input
             class="popup__input popup__input_profile-description"
+            id="profile-description-input"
             type="text"
             name="description"
             value="Исследователь океана"
             required
+            minlength="2"
+            maxlength="200"
           />
+          <div class="popup__error-container">
+            <span class="popup__error-message profile-description-input-error "></span>
+          </div>
           <button class="popup__submit-button" type="submit" value="Сохранить">
             Сохранить
           </button>
@@ -60,6 +72,7 @@
         <form class="popup__form" name="add-card" novalidate>
           <input
             class="popup__input popup__input_card-title"
+            id="card-name-input"
             type="text"
             name="card-title"
             placeholder="Название"
@@ -68,17 +81,18 @@
             maxlength="30"
           />
           <div class="popup__error-container">
-            <p class="popup__error-message popup__error-message_input_card-title">Вы пропустили это поле.</p>
+            <span class="popup__error-message card-name-input-error "></span>
           </div>
           <input
             class="popup__input popup__input_card-src"
+            id="card-url-input"
             type="url"
             name="card-src"
             placeholder="Ссылка на картинку"
             required
           />
           <div class="popup__error-container">
-            <p class="popup__error-message popup__error-message_input_card-src">Введите адрес сайта.</p>
+            <span class="popup__error-message card-url-input-error"></span>
           </div>
           <button class="popup__submit-button" type="submit" value="Сохранить">
             Создать

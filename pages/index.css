@@ -34,6 +34,7 @@
 @import url('../blocks/popup/_opened/popup__opened.css');
 @import url('../blocks/popup/__error-container/popup__error-container.css');
 @import url('../blocks/popup/__error-message/popup__error-message.css');
+@import url('../blocks/popup/__error-message/_active/popup__error-message_active.css');
 @import url('../blocks/fullscr-card/fullscr-card.css');
 @import url('../blocks/fullscr-card/__pic/fullscr-card__pic.css');
 @import url('../blocks/fullscr-card/__caption/fullscr-card__caption.css');
