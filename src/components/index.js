@@ -1,27 +1,8 @@
-
 import '../index.css';
 
+import {} from '../components/modal.js';
 
-
-import {
-  openPopup,
-  closePopup,
-  formProfileSubmitHandler,
-  openProfilePopup,
-  newCardPopup,
-  popupsArray,
-  profileForm,
-  
-} from '../components/modal.js';
-
-
-import {
-  addCardFormSubmit,
-  newCardForm,
-} from '../components/card.js';
-
-import {enableValidation,
-        formObject } from './validate';
+import {enableValidation, formObject } from './validate.js';
 
 
 

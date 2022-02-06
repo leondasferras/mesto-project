@@ -1,6 +1,6 @@
-import initialCards from "./initialCards.js";
+import {initialCards} from "./initialCards.js";
 
-import {  openPopup,
+import {openPopup,
   closePopup,
 } from './modal.js'
 
@@ -100,6 +100,8 @@ function addCardFormSubmit(evt) {
   submitButton.classList.add('popup__submit-button_disabled');
 }
 
+
+//Добавляем карточки из массива
 initialCards.forEach((card) => {
   addCardToEnd({
     cardName: card.name,

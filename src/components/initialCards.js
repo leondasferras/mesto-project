@@ -29,51 +29,7 @@ const initialCards = [
   },
 ];
 
-export default initialCards;
-
-
-// // Начальный список карточек.
-
-// import arkhiz from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-
-// import chel from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-
-// import ivan from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-
-// import kamch from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-
-// import holmog from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-
-// import baik from 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+export {initialCards};
 
 
 
-
-
-
-// const initialCards = [
-//   {
-//     name: "Архыз",
-//     link: arkhiz,
-//   },
-//   {
-//     name: "Челябинская область",
-//     link: chel,
-//   },
-//   {
-//     name: "Иваново",
-//     link: ivan,
-//   },
-//   {
-//     name: "Камчатка",
-//     link: kamch,
-//   },
-//   {
-//     name: "Холмогорский район",
-//     link: holmog,
-//   },
-//   {
-//     name: "Байкал",
-//     link: baik,
-//   },
-// ];

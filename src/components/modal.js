@@ -5,7 +5,6 @@ import {
 } from './card.js'
 
 
-
 const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const profileEditPopup = document.querySelector(".popup_type_profile-edit");
 const newCardPopup = document.querySelector(".popup_type_new-card");
@@ -101,7 +100,6 @@ function openProfilePopup() {
   openPopup(profileEditPopup);
 }
 
-
 export {
   openPopup,
   closePopup,
@@ -115,6 +113,5 @@ export {
   jobInput,
   profileTitle,
   profileSubtitle,
-  closeByEsc
-
+  closeByEsc,
 }
