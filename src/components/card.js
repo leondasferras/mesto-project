@@ -2,12 +2,11 @@ import initialCards from "./initialCards.js";
 
 import {  openPopup,
   closePopup,
-  imagePopup,
-
 } from './modal.js'
 
-
-
+const imagePopup = document.querySelector(".popup_type_pic");
+const popupImage = imagePopup.querySelector(".fullscr-card__pic");
+const popupCaption = imagePopup.querySelector(".fullscr-card__caption");
 
 // Шаблон карточки.
 const cardTemplate = document.querySelector("#card-template").content;
@@ -39,11 +38,8 @@ function createCardFromTemplate(data) {
 
   // Добавляем клик по картинке.
   cardElement.querySelector(".card__pic").addEventListener("click", () => {
-    const popupImage = imagePopup.querySelector(".fullscr-card__pic");
     popupImage.src = data.cardLink;
     popupImage.alt = data.cardName;
-
-    const popupCaption = imagePopup.querySelector(".fullscr-card__caption");
     popupCaption.textContent = data.cardName;
 
     openPopup(imagePopup);
@@ -98,6 +94,10 @@ function addCardFormSubmit(evt) {
   // Обнуляем форму.
   newCardForm.reset();
 
+  // Деактивируем кнопку
+  const submitButton = newCardPopup.querySelector('.popup__submit-button');
+  submitButton.setAttribute('disabled','');
+  submitButton.classList.add('popup__submit-button_disabled');
 }
 
 initialCards.forEach((card) => {

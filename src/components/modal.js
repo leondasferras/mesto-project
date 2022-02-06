@@ -4,25 +4,23 @@ import {
   newCardForm,
 } from './card.js'
 
-import { enableValidation,
-  formObject
-} from './validate.js'
+
 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const profileEditPopup = document.querySelector(".popup_type_profile-edit");
 const newCardPopup = document.querySelector(".popup_type_new-card");
-const imagePopup = document.querySelector(".popup_type_pic");
+
 
 // Открыть попап.
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  enableValidation(formObject); 
+  document.addEventListener('keydown', closeByEsc);
 }
 
 // Закрыть попап.
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  enableValidation(formObject)
+  document.removeEventListener ('keydown', closeByEsc);
 }
 
 // Добавляем клик по кнопке редактировать.
@@ -32,11 +30,28 @@ document
     openProfilePopup();
   });
 
+// Добавляем клик по кнопке добавить.
+document.querySelector(".profile__add-button").addEventListener("click", () => {
+  openPopup(newCardPopup);
+});
 
+  // Закрывам попап на Esc
+  function closeByEsc(evt) {
+    if (evt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_opened');
+      closePopup(openedPopup);
+    }
+  }
 
-
-
-
+    //Закрываем попапы кликом на оверлей и кнопку
+  popupsArray.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains("popup__close-button") || evt.target.classList.contains("popup") ){ 
+        closePopup(popup)
+      }
+    })
+    
+  })
 
 // Находим форму в DOM
 const profileForm = profileEditPopup.querySelector(".popup__form");
@@ -49,7 +64,7 @@ const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
 // Обработчик «отправки» формы.
-function formProfileSubmitHandler(evt) {
+function handleformProfileSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   // Получаем значение полей jobInput и nameInput.
@@ -64,12 +79,12 @@ function formProfileSubmitHandler(evt) {
   
   // Закрываем попап с формой.
   closePopup(profileEditPopup);
-  enableValidation(formObject)
+  
 }
 
 // Прикрепляем обработчик к форме профиля:
 
-profileForm.addEventListener("submit", formProfileSubmitHandler);
+profileForm.addEventListener("submit", handleformProfileSubmit);
 
 // Прикрепляем обработчик к форме карточек:
 
@@ -90,10 +105,9 @@ function openProfilePopup() {
 export {
   openPopup,
   closePopup,
-  formProfileSubmitHandler,
+  handleformProfileSubmit as formProfileSubmitHandler,
   openProfilePopup,
   newCardPopup,
-  imagePopup,
   popupsArray,
   profileEditPopup,
   profileForm,
@@ -101,6 +115,6 @@ export {
   jobInput,
   profileTitle,
   profileSubtitle,
-  
+  closeByEsc
 
 }
