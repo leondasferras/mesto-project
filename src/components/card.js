@@ -4,23 +4,38 @@ import {openPopup,
   closePopup,
 } from './modal.js'
 
+import { addCard } from "./api.js";
+
+import { currentUserId } from "./index.js";
+
+
 const imagePopup = document.querySelector(".popup_type_pic");
 const popupImage = imagePopup.querySelector(".fullscr-card__pic");
 const popupCaption = imagePopup.querySelector(".fullscr-card__caption");
 
 // Шаблон карточки.
 const cardTemplate = document.querySelector("#card-template").content;
+
 // Контейнер для карточек.
 const cards = document.querySelector(".cards");
 const newCardPopup = document.querySelector(".popup_type_new-card");
+
 // Создать карточку из шаблона.
-function createCardFromTemplate(data) {
+function createCardFromTemplate(card) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  cardElement.querySelector(".card__title").textContent = data.cardName;
+  cardElement.querySelector(".card__title").textContent = card.name;
 
   const cardImage = cardElement.querySelector(".card__pic");
-  cardImage.src = data.cardLink;
-  cardImage.alt = data.cardName;
+  cardImage.src = card.link;
+  cardImage.alt = card.name;
+
+  const cardLikeCounter = cardElement.querySelector(".card__like-counter");
+  cardLikeCounter.textContent = card.likes.length;
+
+  if (currentUserId != card.owner._id) {
+    cardElement.querySelector(".card__delete-button").classList.add('card__delete-button_disabled');
+  }
+
 
   // Добавляем клик по кнопке лайка.
   cardElement
@@ -38,9 +53,9 @@ function createCardFromTemplate(data) {
 
   // Добавляем клик по картинке.
   cardElement.querySelector(".card__pic").addEventListener("click", () => {
-    popupImage.src = data.cardLink;
-    popupImage.alt = data.cardName;
-    popupCaption.textContent = data.cardName;
+    popupImage.src = card.link;
+    popupImage.alt = card.name;
+    popupCaption.textContent = card.name;
 
     openPopup(imagePopup);
   });
@@ -82,33 +97,34 @@ function addCardFormSubmit(evt) {
   const cardNameInputValue = cardNameInput.value;
   const cardSrcInputValue = cardSrcInput.value;
 
-  // Карточку новую добавляем.
-  addCardToStart({
-    cardName: cardNameInputValue,
-    cardLink: cardSrcInputValue,
+
+  addCard({
+    name: cardNameInputValue,
+    link: cardSrcInputValue
+  }).then(res => {
+
+    // Карточку новую добавляем.
+    addCardToStart(res);
+
+    // Закрываем попап с формой.
+    closePopup(newCardPopup);
+
+    // Обнуляем форму.
+    newCardForm.reset();
+
+     // Деактивируем кнопку
+    const submitButton = newCardPopup.querySelector('.popup__submit-button');
+    submitButton.setAttribute('disabled','');
+    submitButton.classList.add('popup__submit-button_disabled');
   });
-
-  // Закрываем попап с формой.
-  closePopup(newCardPopup);
-
-  // Обнуляем форму.
-  newCardForm.reset();
-
-  // Деактивируем кнопку
-  const submitButton = newCardPopup.querySelector('.popup__submit-button');
-  submitButton.setAttribute('disabled','');
-  submitButton.classList.add('popup__submit-button_disabled');
 }
 
-
-//Добавляем карточки из массива
-initialCards.forEach((card) => {
-  addCardToEnd({
-    cardName: card.name,
-    cardLink: card.link,
+// Заполняем карточки данными из массива.
+const fillCards = (cards) => {
+  cards.forEach((card) => {
+    addCardToEnd(card);
   });
-});
-
+};
 
 
 export {
@@ -121,4 +137,5 @@ export {
   newCardForm,
   cardNameInput,
   cardSrcInput,
+  fillCards
 }

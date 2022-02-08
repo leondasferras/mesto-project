@@ -4,6 +4,8 @@ import {
   newCardForm,
 } from './card.js'
 
+import { setUserInfo } from "./api.js";
+
 
 const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const profileEditPopup = document.querySelector(".popup_type_profile-edit");
@@ -61,6 +63,15 @@ const jobInput = profileForm.querySelector(".popup__input_profile-description");
 // Выбираем элементы профиля.
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
+const profileAvatar = document.querySelector(".profile__avatar");
+
+const fillUserInfo = (user) => {
+  profileSubtitle.textContent = user.about;
+  profileTitle.textContent = user.name;
+  profileAvatar.src = user.avatar;
+  profileAvatar.alt = user.name;
+};
+
 
 // Обработчик «отправки» формы.
 function handleformProfileSubmit(evt) {
@@ -70,23 +81,20 @@ function handleformProfileSubmit(evt) {
   const nameInputValue = nameInput.value;
   const jobInputValue = jobInput.value;
 
-  // Вставляем новые значения с помощью textContent.
-  profileTitle.textContent = nameInputValue;
-  profileSubtitle.textContent = jobInputValue;
-
-
-  
-  // Закрываем попап с формой.
-  closePopup(profileEditPopup);
-  
+  setUserInfo({
+    name: nameInputValue,
+    about: jobInputValue
+  }).then(res => {
+    fillUserInfo(res);
+    // Закрываем попап с формой.
+    closePopup(profileEditPopup);
+  });
 }
 
 // Прикрепляем обработчик к форме профиля:
-
 profileForm.addEventListener("submit", handleformProfileSubmit);
 
 // Прикрепляем обработчик к форме карточек:
-
 newCardForm.addEventListener("submit", addCardFormSubmit);
 
 
@@ -103,7 +111,7 @@ function openProfilePopup() {
 export {
   openPopup,
   closePopup,
-  handleformProfileSubmit as formProfileSubmitHandler,
+  handleformProfileSubmit,
   openProfilePopup,
   newCardPopup,
   popupsArray,
@@ -114,4 +122,5 @@ export {
   profileTitle,
   profileSubtitle,
   closeByEsc,
+  fillUserInfo
 }
