@@ -1,10 +1,16 @@
-import {initialCards} from "./initialCards.js";
+import { initialCards } from "./initialCards.js";
 
-import {openPopup,
+import {
+  openPopup,
   closePopup,
 } from './modal.js'
 
-import { addCard } from "./api.js";
+import {
+  addCard,
+  deleteCard,
+  addLike,
+  removeLike
+} from "./api.js";
 
 import { currentUserId } from "./index.js";
 
@@ -20,6 +26,8 @@ const cardTemplate = document.querySelector("#card-template").content;
 const cards = document.querySelector(".cards");
 const newCardPopup = document.querySelector(".popup_type_new-card");
 
+const isCardLiked = (card) => Boolean(card.likes.find(user => user._id === currentUserId));
+
 // Создать карточку из шаблона.
 function createCardFromTemplate(card) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -32,23 +40,47 @@ function createCardFromTemplate(card) {
   const cardLikeCounter = cardElement.querySelector(".card__like-counter");
   cardLikeCounter.textContent = card.likes.length;
 
+  if (isCardLiked(card)) {
+    cardElement.querySelector(".card__like-icon").classList.add('card__like-icon_active')
+  }
+
   if (currentUserId != card.owner._id) {
     cardElement.querySelector(".card__delete-button").classList.add('card__delete-button_disabled');
   }
-
 
   // Добавляем клик по кнопке лайка.
   cardElement
     .querySelector(".card__like-icon")
     .addEventListener("click", (event) => {
-      event.target.classList.toggle("card__like-icon_active");
+      if (!isCardLiked(card)) {
+        addLike(card._id)
+        .then(res => {
+          card = res;
+          cardLikeCounter.textContent = res.likes.length;
+          event.target.classList.add("card__like-icon_active");
+        })
+      }
+      else {
+        removeLike(card._id)
+        .then(res => {
+          card = res;
+          cardLikeCounter.textContent = res.likes.length;
+          event.target.classList.remove("card__like-icon_active");
+        })
+      }
+
     });
 
   // Добавляем клик по кнопке удаления.
   cardElement
     .querySelector(".card__delete-button")
     .addEventListener("click", () => {
-      cardElement.remove();
+
+      if (!confirm("Точно удалить?"))
+        return;
+
+      deleteCard(card._id)
+        .then(cardElement.remove());
     });
 
   // Добавляем клик по картинке.
@@ -112,9 +144,9 @@ function addCardFormSubmit(evt) {
     // Обнуляем форму.
     newCardForm.reset();
 
-     // Деактивируем кнопку
+    // Деактивируем кнопку
     const submitButton = newCardPopup.querySelector('.popup__submit-button');
-    submitButton.setAttribute('disabled','');
+    submitButton.setAttribute('disabled', '');
     submitButton.classList.add('popup__submit-button_disabled');
   });
 }

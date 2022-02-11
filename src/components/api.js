@@ -34,20 +34,45 @@ const getCards = () => {
 };
 
 const addCard = (data) => {
-    return fetch(`${config.baseUrl}/cards`, {
-      method: 'POST',
-      headers: config.headers,
-      body: JSON.stringify(data)
-    })
-    .then(res => getResponseData(res));
-  };
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify(data)
+  })
+  .then(res => getResponseData(res));
+};
 
+const deleteCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers
+  })
+  .then(res => getResponseData(res));
+};
 
+const addLike = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: config.headers
+  })
+  .then(res => getResponseData(res));
+};
+
+const removeLike = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: config.headers
+  })
+  .then(res => getResponseData(res));
+};
 
 
 export {
     getUser, 
     getCards,
     setUserInfo,
-    addCard
+    addCard,
+    deleteCard,
+    addLike,
+    removeLike
 }
