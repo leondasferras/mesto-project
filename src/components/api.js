@@ -66,6 +66,14 @@ const removeLike = (cardId) => {
   .then(res => getResponseData(res));
 };
 
+const setUserAvatar = (data) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify(data)
+  })
+  .then(res => getResponseData(res));
+};
 
 export {
     getUser, 

@@ -1,0 +1,12 @@
+.profile__avatar-wrapper {
+    position: relative;
+    border-radius: 50%;
+}
+
+.profile__avatar-wrapper:hover  .profile__avatar-edit-icon {
+    display: flex;
+}
+
+.profile__avatar-wrapper:hover .profile__avatar {
+    opacity: 0.4;
+}

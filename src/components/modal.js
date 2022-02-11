@@ -10,6 +10,7 @@ import { setUserInfo } from "./api.js";
 const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const profileEditPopup = document.querySelector(".popup_type_profile-edit");
 const newCardPopup = document.querySelector(".popup_type_new-card");
+const avatarEditPopup = document.querySelector(".popup_type_avatar-edit");
 
 
 // Открыть попап.
@@ -35,6 +36,11 @@ document
 document.querySelector(".profile__add-button").addEventListener("click", () => {
   openPopup(newCardPopup);
 });
+
+//Добавляем клик по аватару.
+document.querySelector(".profile__avatar").addEventListener("click", () => {
+  openPopup(avatarEditPopup);
+} )
 
   // Закрывам попап на Esc
   function closeByEsc(evt) {
@@ -73,7 +79,7 @@ const fillUserInfo = (user) => {
 };
 
 
-// Обработчик «отправки» формы.
+// Обработчик «отправки» формы редактирования профиля.
 function handleformProfileSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 

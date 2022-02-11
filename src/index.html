@@ -12,11 +12,14 @@
     </header>
     <main class="main">
       <section class="profile">
+        <div class="profile__avatar-wrapper">
         <img
           src=""
           alt=""
           class="profile__avatar"
         />
+        <div class="profile__avatar-edit-icon"></div>
+      </div>
         <div class="profile__info">
           <h1 class="profile__title"></h1>
           <button type="button" class="profile__edit-button"></button>
@@ -108,6 +111,31 @@
         <figcaption class="fullscr-card__caption"></figcaption>
       </figure>
     </div>
+
+    <div class="popup popup_type_avatar-edit">
+      <div class="popup__container">
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="popup__form" name="avatar-edit" novalidate>
+          <input
+            class="popup__input"
+            id="avatar-url-input"
+            type="url"
+            name="avatar-url"
+            placeholder="Ссылка на изображение"
+            required
+            maxlength="100"
+          />
+          <div class="popup__error-container">
+            <span class="popup__error-message avatar-url-input-error"></span>
+          </div>
+          <button class="popup__submit-button" type="submit" value="Сохранить">
+            Сохранить
+          </button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+
     <template id="card-template">
       <div class="card">
         <button class="card__delete-button" type="button"></button>

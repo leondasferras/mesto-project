@@ -1,0 +1,13 @@
+.profile__avatar-edit-icon {
+    background: url('../../../images/edit-button.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    display: none;
+    left: 47px;
+    top: 48px;
+}
+
