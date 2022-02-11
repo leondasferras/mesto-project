@@ -82,5 +82,6 @@ export {
     addCard,
     deleteCard,
     addLike,
-    removeLike
+    removeLike,
+    setUserAvatar
 }
