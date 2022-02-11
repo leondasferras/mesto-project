@@ -3,6 +3,7 @@ import { initialCards } from "./initialCards.js";
 import {
   openPopup,
   closePopup,
+  changeButtonTitle
 } from './modal.js'
 
 import {
@@ -121,10 +122,11 @@ const newCardForm = newCardPopup.querySelector(".popup__form");
 const cardNameInput = newCardForm.querySelector(".popup__input_card-title");
 const cardSrcInput = newCardForm.querySelector(".popup__input_card-src");
 
-// Обработчик «отправки» формы.
+// Обработчик «отправки» формы создания карточки.
 function addCardFormSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
+  
+  changeButtonTitle(newCardForm, "Создание...")
   // Получаем значение полей.
   const cardNameInputValue = cardNameInput.value;
   const cardSrcInputValue = cardSrcInput.value;
@@ -134,10 +136,11 @@ function addCardFormSubmit(evt) {
     name: cardNameInputValue,
     link: cardSrcInputValue
   }).then(res => {
-
     // Карточку новую добавляем.
     addCardToStart(res);
+  }).then (res => {
 
+    changeButtonTitle(newCardForm, "Создать")
     // Закрываем попап с формой.
     closePopup(newCardPopup);
 
@@ -148,7 +151,7 @@ function addCardFormSubmit(evt) {
     const submitButton = newCardPopup.querySelector('.popup__submit-button');
     submitButton.setAttribute('disabled', '');
     submitButton.classList.add('popup__submit-button_disabled');
-  });
+  })
 }
 
 // Заполняем карточки данными из массива.

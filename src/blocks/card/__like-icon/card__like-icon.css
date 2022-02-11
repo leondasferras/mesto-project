@@ -8,6 +8,7 @@
   border: none;
   transition: opacity 0.25s ease-in-out;
   cursor: pointer;
+  margin-bottom: 5px;
 }
 
 .card__like-icon:hover {

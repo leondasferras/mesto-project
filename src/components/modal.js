@@ -85,10 +85,16 @@ const changeAvatar = (user) => {
   profileAvatar.src = user.avatar;
 }
 
+//Меняем название кнопки отправки формы
+function changeButtonTitle(form, buttonTitle) {
+  form.querySelector('.popup__submit-button').textContent = buttonTitle;
+}
+
 // Обработчик «отправки» формы редактирования профиля.
 function handleformProfileSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
+  changeButtonTitle(profileForm, "Сохранение...")
   // Получаем значение полей jobInput и nameInput.
   const nameInputValue = nameInput.value;
   const jobInputValue = jobInput.value;
@@ -98,21 +104,27 @@ function handleformProfileSubmit(evt) {
     about: jobInputValue
   }).then(res => {
     fillUserInfo(res);
-    // Закрываем попап с формой.
-    closePopup(profileEditPopup);
+   }).then (res => {
+    changeButtonTitle(profileForm, "Сохранить")
+    closePopup(profileEditPopup)
   });
 }
 
 // Обработчик отправки формы смены аватара
 function handleFormAvatarEditSubmit(evt) {
   evt.preventDefault();
-
+  changeButtonTitle(avatarForm, "Сохранение...")
   //Получаем значение поля url автара
   const avatarUrl = avatarUrlInput.value;
+
   setUserAvatar({
     avatar: avatarUrl
   }).then((res) => {
     changeAvatar(res);
+    
+  }).then
+  ( res => {
+    changeButtonTitle(avatarForm, "Сохранить")
     closePopup(avatarEditPopup);
   })
 }
@@ -151,5 +163,6 @@ export {
   profileTitle,
   profileSubtitle,
   closeByEsc,
-  fillUserInfo
+  fillUserInfo,
+  changeButtonTitle
 }

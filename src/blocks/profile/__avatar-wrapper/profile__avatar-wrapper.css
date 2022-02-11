@@ -1,6 +1,7 @@
 .profile__avatar-wrapper {
     position: relative;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .profile__avatar-wrapper:hover  .profile__avatar-edit-icon {
