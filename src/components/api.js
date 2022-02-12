@@ -14,7 +14,8 @@ const getUser = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
-  .then((res) => getResponseData(res));
+  .then((res) => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const setUserInfo = (data) => {
@@ -23,14 +24,16 @@ const setUserInfo = (data) => {
       headers: config.headers,
       body: JSON.stringify(data)
     })
-    .then(res => getResponseData(res));
+    .then(res => getResponseData(res))
+    .catch(() => console.log("Произошла ошибка!"))
   };
 
 const getCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const addCard = (data) => {
@@ -39,7 +42,8 @@ const addCard = (data) => {
     headers: config.headers,
     body: JSON.stringify(data)
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const deleteCard = (cardId) => {
@@ -47,7 +51,8 @@ const deleteCard = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const addLike = (cardId) => {
@@ -55,7 +60,8 @@ const addLike = (cardId) => {
     method: 'PUT',
     headers: config.headers
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const removeLike = (cardId) => {
@@ -63,7 +69,8 @@ const removeLike = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 const setUserAvatar = (data) => {
@@ -72,7 +79,8 @@ const setUserAvatar = (data) => {
     headers: config.headers,
     body: JSON.stringify(data)
   })
-  .then(res => getResponseData(res));
+  .then(res => getResponseData(res))
+  .catch(() => console.log("Произошла ошибка!"))
 };
 
 export {

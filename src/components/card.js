@@ -1,10 +1,10 @@
-import { initialCards } from "./initialCards.js";
 
 import {
   openPopup,
   closePopup,
-  changeButtonTitle
-} from './modal.js'
+  changeButtonTitle,
+  disableButton
+} from './utils.js'
 
 import {
   addCard,
@@ -20,6 +20,8 @@ const imagePopup = document.querySelector(".popup_type_pic");
 const popupImage = imagePopup.querySelector(".fullscr-card__pic");
 const popupCaption = imagePopup.querySelector(".fullscr-card__caption");
 
+
+
 // Шаблон карточки.
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -29,9 +31,18 @@ const newCardPopup = document.querySelector(".popup_type_new-card");
 
 const isCardLiked = (card) => Boolean(card.likes.find(user => user._id === currentUserId));
 
+//Кнопка отправки формы карточки
+const cardSubmitButton = newCardPopup.querySelector('.popup__submit-button');
+
+
+
 // Создать карточку из шаблона.
 function createCardFromTemplate(card) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+
+  //Иконка лайка
+  const iconOfLike = cardElement.querySelector(".card__like-icon");
+
   cardElement.querySelector(".card__title").textContent = card.name;
 
   const cardImage = cardElement.querySelector(".card__pic");
@@ -42,7 +53,7 @@ function createCardFromTemplate(card) {
   cardLikeCounter.textContent = card.likes.length;
 
   if (isCardLiked(card)) {
-    cardElement.querySelector(".card__like-icon").classList.add('card__like-icon_active')
+    iconOfLike.classList.add('card__like-icon_active')
   }
 
   if (currentUserId != card.owner._id) {
@@ -50,8 +61,7 @@ function createCardFromTemplate(card) {
   }
 
   // Добавляем клик по кнопке лайка.
-  cardElement
-    .querySelector(".card__like-icon")
+  iconOfLike
     .addEventListener("click", (event) => {
       if (!isCardLiked(card)) {
         addLike(card._id)
@@ -59,6 +69,9 @@ function createCardFromTemplate(card) {
           card = res;
           cardLikeCounter.textContent = res.likes.length;
           event.target.classList.add("card__like-icon_active");
+        })
+        .catch (res => {
+          console.log("Произошла ошибка!")
         })
       }
       else {
@@ -68,6 +81,7 @@ function createCardFromTemplate(card) {
           cardLikeCounter.textContent = res.likes.length;
           event.target.classList.remove("card__like-icon_active");
         })
+        .catch(() => console.log("Произошла ошибка!"))
       }
 
     });
@@ -81,11 +95,13 @@ function createCardFromTemplate(card) {
         return;
 
       deleteCard(card._id)
-        .then(cardElement.remove());
+        .then(() => 
+          cardElement.remove())
+        .catch(() => console.log("Произошла ошибка!"))
     });
 
   // Добавляем клик по картинке.
-  cardElement.querySelector(".card__pic").addEventListener("click", () => {
+  cardImage.addEventListener("click", () => {
     popupImage.src = card.link;
     popupImage.alt = card.name;
     popupCaption.textContent = card.name;
@@ -139,19 +155,15 @@ function addCardFormSubmit(evt) {
     // Карточку новую добавляем.
     addCardToStart(res);
   }).then (res => {
-
-    changeButtonTitle(newCardForm, "Создать")
     // Закрываем попап с формой.
     closePopup(newCardPopup);
-
     // Обнуляем форму.
     newCardForm.reset();
-
     // Деактивируем кнопку
-    const submitButton = newCardPopup.querySelector('.popup__submit-button');
-    submitButton.setAttribute('disabled', '');
-    submitButton.classList.add('popup__submit-button_disabled');
+    disableButton(cardSubmitButton)
   })
+    .catch(() => console.log("Произошла ошибка!"))
+    .finally(() => changeButtonTitle(newCardForm, "Создать"))
 }
 
 // Заполняем карточки данными из массива.
@@ -163,14 +175,7 @@ const fillCards = (cards) => {
 
 
 export {
-  cardTemplate,
-  cards,
-  createCardFromTemplate,
-  addCardToEnd,
-  addCardToStart,
   addCardFormSubmit,
   newCardForm,
-  cardNameInput,
-  cardSrcInput,
   fillCards
 }

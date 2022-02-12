@@ -96,11 +96,5 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
 
 export {
   enableValidation,
-  toggleButtonState,
-  hasInvalidInput,
-  setEventListeners,
-  hideInputError,
-  showInputError,
-  isValid,
   formObject
 }

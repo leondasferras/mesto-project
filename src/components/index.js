@@ -23,10 +23,9 @@ getAppInfo()
   .then(([user, cards]) => {
     currentUserId = user._id;
     fillUserInfo(user);
-    console.log(user);
     fillCards(cards);
-    console.log(cards);
-  });
+  })
+  .catch(() => console.log("Произошла ошибка!"))
 
 
 export {

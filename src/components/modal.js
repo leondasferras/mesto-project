@@ -4,6 +4,13 @@ import {
   newCardForm,
 } from './card.js'
 
+import {
+  openPopup,
+  closePopup,
+  changeButtonTitle,
+  disableButton
+} from './utils.js'
+
 import { setUserInfo, setUserAvatar } from "./api.js";
 
 
@@ -13,17 +20,7 @@ const newCardPopup = document.querySelector(".popup_type_new-card");
 const avatarEditPopup = document.querySelector(".popup_type_avatar-edit");
 
 
-// Открыть попап.
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closeByEsc);
-}
 
-// Закрыть попап.
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener ('keydown', closeByEsc);
-}
 
 // Добавляем клик по кнопке редактировать.
 document
@@ -42,13 +39,7 @@ document.querySelector(".profile__avatar-wrapper").addEventListener("click", () 
   openPopup(avatarEditPopup);
 } )
 
-  // Закрывам попап на Esc
-  function closeByEsc(evt) {
-    if (evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_opened');
-      closePopup(openedPopup);
-    }
-  }
+
 
     //Закрываем попапы кликом на оверлей и кнопку
   popupsArray.forEach((popup) => {
@@ -63,6 +54,9 @@ document.querySelector(".profile__avatar-wrapper").addEventListener("click", () 
 // Находим формы в DOM
 const profileForm = profileEditPopup.querySelector(".popup__form");
 const avatarForm = avatarEditPopup.querySelector(".popup__form");
+
+const avatarSubmitButton = avatarForm.querySelector(".popup__submit-button")
+
 // Находим поля форм в DOM
 const nameInput = profileForm.querySelector(".popup__input_profile-name");
 const jobInput = profileForm.querySelector(".popup__input_profile-description");
@@ -85,10 +79,6 @@ const changeAvatar = (user) => {
   profileAvatar.src = user.avatar;
 }
 
-//Меняем название кнопки отправки формы
-function changeButtonTitle(form, buttonTitle) {
-  form.querySelector('.popup__submit-button').textContent = buttonTitle;
-}
 
 // Обработчик «отправки» формы редактирования профиля.
 function handleformProfileSubmit(evt) {
@@ -102,12 +92,15 @@ function handleformProfileSubmit(evt) {
   setUserInfo({
     name: nameInputValue,
     about: jobInputValue
-  }).then(res => {
+  })
+  .then(res => {
     fillUserInfo(res);
-   }).then (res => {
-    changeButtonTitle(profileForm, "Сохранить")
+   })
+  .then (res => {
     closePopup(profileEditPopup)
-  });
+  })
+  .catch(() => console.log("Произошла ошибка!"))
+  .finally(() => changeButtonTitle(profileForm, "Сохранить"))
 }
 
 // Обработчик отправки формы смены аватара
@@ -119,14 +112,17 @@ function handleFormAvatarEditSubmit(evt) {
 
   setUserAvatar({
     avatar: avatarUrl
-  }).then((res) => {
+    })
+  .then((res) => {
     changeAvatar(res);
-    
-  }).then
-  ( res => {
-    changeButtonTitle(avatarForm, "Сохранить")
+  })
+  .then( res => {
+    avatarForm.reset();
+    disableButton(avatarSubmitButton)
     closePopup(avatarEditPopup);
   })
+  .catch(() => console.log("Произошла ошибка"))
+  .finally (() => changeButtonTitle(avatarForm, "Сохранить"))
 }
 
 // Прикрепляем обработчик к форме профиля:
@@ -150,19 +146,5 @@ function openProfilePopup() {
 }
 
 export {
-  openPopup,
-  closePopup,
-  handleformProfileSubmit,
-  openProfilePopup,
-  newCardPopup,
-  popupsArray,
-  profileEditPopup,
-  profileForm,
-  nameInput,
-  jobInput,
-  profileTitle,
-  profileSubtitle,
-  closeByEsc,
   fillUserInfo,
-  changeButtonTitle
 }
