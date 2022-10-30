@@ -15,4 +15,4 @@
 
 
 ## Ссылка на проект
-[**Ссылка на сайт**](https://leondasferras.github.io/mesto-project/index.html)
+[**Ссылка на сайт**](https://leondasferras.github.io/HARD-01/)
